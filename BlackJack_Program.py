@@ -45,40 +45,44 @@ def play_game():
     score_user = 0
     for numero in user_rand_list:
         score_user += numero
-    print(f"Your cards: {user_rand_list}, current score: {score_user} ")
-    print(f"Computer's first card: {pc_rand_card}")
-    while user_take_card():
-        new_card = random.choice(cards)
-        score_user += new_card
-        user_rand_list.append(new_card)
-        if score_user > 21:
-            print(f"Your final hand: {user_rand_list}, final score: {score_user}")
-            print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
-            print("You went over. You lose 😭 ")
-        else:
-            print(f"Your cards: {user_rand_list}, current score: {score_user}")
-    while score_computer <= 17:
-        new_card = random.choice(cards)
-        pc_random_list.append(new_card)
-        score_computer += new_card
-    if score_computer > 21:
-            print(f"Your final hand: {user_rand_list}, final score: {score_user}")
-            print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
-            print("Opponent went over. You win 😁")
+    if score_user == 21:
+        print("You win with a BlackJack! 😁")
     else:
-        if score_computer > score_user:
-            print(f"Your final hand: {user_rand_list}, final score: {score_user}")
-            print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
-            print("You lose 😤 ")
-        elif score_computer == score_user:
-            print(f"Your final hand: {user_rand_list}, final score: {score_user}")
-            print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
-            print("It's a draw 😤 ")
-        elif score_computer < score_user:
-            print(f"Your final hand: {user_rand_list}, final score: {score_user}")
-            print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
-            print("You win 😃 ")
+        print(f"Your cards: {user_rand_list}, current score: {score_user} ")
+        print(f"Computer's first card: {pc_rand_card}")
+        while user_take_card():
+            new_card = random.choice(cards)
+            score_user += new_card
+            user_rand_list.append(new_card)
+            if score_user > 21:
+                print(f"Your final hand: {user_rand_list}, final score: {score_user}")
+                print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
+                print("You went over. You lose 😭 ")
+            else:
+                print(f"Your cards: {user_rand_list}, current score: {score_user}")
+        while score_computer <= 17:
+            new_card = random.choice(cards)
+            pc_random_list.append(new_card)
+            score_computer += new_card
+        if score_computer > 21:
+                print(f"Your final hand: {user_rand_list}, final score: {score_user}")
+                print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
+                print("Opponent went over. You win 😁")
+        else:
+            if score_computer > score_user:
+                print(f"Your final hand: {user_rand_list}, final score: {score_user}")
+                print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
+                print("You lose 😤 ")
+            elif score_computer == score_user:
+                print(f"Your final hand: {user_rand_list}, final score: {score_user}")
+                print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
+                print("It's a draw 😤 ")
+            elif score_computer < score_user:
+                print(f"Your final hand: {user_rand_list}, final score: {score_user}")
+                print(f"Computer's final hand: {pc_random_list}, final score: {score_computer}")
+                print("You win 😃 ")
 
 while continue_game():
     play_game()
 input("Press ENTER for close game ")
+
