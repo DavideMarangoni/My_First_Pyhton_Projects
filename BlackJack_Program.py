@@ -42,7 +42,8 @@ def play_game():
             card_list[card_list.index(11)] = 1
             score = sum(card_list)
         return score
-
+    print("\n" * 30)
+    print(logo)
     print("Welcome to Blackjack!")
 
     # User setup
