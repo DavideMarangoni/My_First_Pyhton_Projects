@@ -8,6 +8,7 @@ logo = r"""
       |  \/ K|                            _/ |                
       `------'                           |__/           
 """
+import sys
 import random
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 def continue_game():
@@ -64,12 +65,13 @@ def play_game():
         elif user_score > 21:
             print("You went over. You lose 😭")
             game_over = True
+            input("Enter PRESS for close the program ")
+            exit()
         else:
             if user_take_card():
                 user_cards.append(random.choice(cards))
             else:
                 game_over = True
-
     # Computer turn
     while calculate_score(computer_cards) < 17:
         computer_cards.append(random.choice(cards))

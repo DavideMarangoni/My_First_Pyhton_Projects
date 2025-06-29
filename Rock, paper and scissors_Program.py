@@ -26,7 +26,6 @@ scissors = '''
       (____)
 ---.__(___)
 '''
-
 print("Welcome to the paper, rock and scissors game!!!\nAre you reade?!\nLet's gooo")
 direction = "yes"
 draw = "True"

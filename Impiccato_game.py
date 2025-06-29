@@ -153,11 +153,12 @@ while "_" in display:
     if guess not in chosen_word:
 
         # 1) l'utente ha terminato le vite perché lo status dell'impiccato è arrivato a 0 ( lo stato finale, corrispondente al primo indice della lista "stages" )
-        if stage_status == 0:
+        if life < 1:
 
             #in questo caso stampa l'ultimo stadio della grafica e il gioco termina
             print(stages[0])
             print(f"\nThe word was {chosen_word}\nYOU LOSE...\n")
+            input("Press ENTER to close the window ")
             exit()
 
         # 2) l'utente ha ancora altre vite quindi il gioco continua
