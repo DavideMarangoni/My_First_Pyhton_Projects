@@ -50,14 +50,6 @@ stages = [r'''
       |
       |
 =========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
 ''']
 # Mi sono fatto generare dalla AI delle parole casuali in italiano e l'ho inserite dentro la lista 'word_list'
 word_list = [
@@ -91,7 +83,7 @@ word_list = [
 ]
 
 # Definisco una variabile che mi servirà successivamente per stampare lo status dell'impiccato
-stage_status = 6
+stage_status = 5
 
 # faccio scegliere una parola random dal programma
 chosen_word = random.choice(word_list)
@@ -113,71 +105,74 @@ print('''
                    |___/
 ''')
 print("\nWelcome to hangman game!\n")
-print("This is the word to guess:\n ")
-# stampo placeholder
-print(placeholder)
+direction = True
 
-# inizializzo la veriabile display che utilizzerò dopo la scelta della lettera da parte dell'utente
-display = ["_"] * len(chosen_word)
+while direction == True:
+    print("This is the word to guess:\n ")
+    # stampo placeholder
+    print(placeholder)
 
-# Inizializzo la lista delle lettere sbagliate per farla stampare
-wrong_letter = []
+    # inizializzo la veriabile display che utilizzerò dopo la scelta della lettera da parte dell'utente
+    display = ["_"] * len(chosen_word)
 
-# Il ciclo continua finché "_" è presente nella variabile "display" (cioè la grafica che verrà mostrata all'utente e.g. A____O)
-# Logicamente finché "_" è presente significa che la parola non è stata indovinata
-life = 7
-print(f"\nYou have {life} lives... good luck!\n")
-while "_" in display:
+    # Inizializzo la lista delle lettere sbagliate per farla stampare
+    wrong_letter = []
 
-    #chiedo all'utente la lettera e inizializzo la variabile "guess"
-    print("\n----------------------------------------------------------------------------------------------------------")
-    print(f"You have {life}/7 lives left")
-    guess = input("\nChoose a letter: ").upper()
-    print("\n")
+    # Il ciclo continua finché "_" è presente nella variabile "display" (cioè la grafica che verrà mostrata all'utente e.g. A____O)
+    # Logicamente finché "_" è presente significa che la parola non è stata indovinata
+    life = 6
+    print(f"\nYou have {life} lives... good luck!\n")
+    while "_" in display:
 
-    # inserisco la condizione che se l'utente digita l'intera parola corretta allora vince e la partita termina
-    if guess == chosen_word:
-        print(f"RIGHT! The word was {chosen_word}... YOU WIN!!\n")
-        display = chosen_word
-        exit()
-    else:
-        # il ciclo mette a confronto le lettera della parola con quella digitata dall'utente
-        # se la lettera è uguale sostituisce al simbolo "_" la lettera scelta altrimenti lascia "_"
-        # e.g. parola random = mela --> _ _ _ _
-        # digito "a" --> _ _ _ a
-        for i in range(len(chosen_word)):
-            if chosen_word[i] == guess:
-                display[i] = guess
+        #chiedo all'utente la lettera e inizializzo la variabile "guess"
+        print("\n----------------------------------------------------------------------------------------------------------")
+        print(f"You have {life}/6 lives left")
+        guess = input("\nChoose a letter: ").upper()
+        print("\n")
 
-    # se la lettera non è contenuta ci sono possibilità
-    if guess not in chosen_word:
-
-        # 1) l'utente ha terminato le vite perché lo status dell'impiccato è arrivato a 0 ( lo stato finale, corrispondente al primo indice della lista "stages" )
-        if life < 1:
-
-            #in questo caso stampa l'ultimo stadio della grafica e il gioco termina
-            print(stages[0])
-            print(f"\nThe word was {chosen_word}\nYOU LOSE...\n")
-            input("Press ENTER to close the window ")
-            exit()
-
-        # 2) l'utente ha ancora altre vite quindi il gioco continua
-        # la lettera errato viene inserita dentro la lista wrong_letter e verrà stampa e lo stadio dell'impiccato avanzerà di uno
+        # inserisco la condizione che se l'utente digita l'intera parola corretta allora vince e la partita termina
+        if guess == chosen_word:
+            print(f"RIGHT! The word was {chosen_word}... YOU WIN!!\n")
+            display = chosen_word
+            direction = False
         else:
-            if guess in wrong_letter:
-                print(stages[stage_status])
-                print("Wrong letters you chose", wrong_letter,"\n")
-                life -= 1
+            # il ciclo mette a confronto le lettera della parola con quella digitata dall'utente
+            # se la lettera è uguale sostituisce al simbolo "_" la lettera scelta altrimenti lascia "_"
+            # e.g. parola random = mela --> _ _ _ _
+            # digito "a" --> _ _ _ a
+            for i in range(len(chosen_word)):
+                if chosen_word[i] == guess:
+                    display[i] = guess
+
+        # se la lettera non è contenuta ci sono possibilità
+        if guess not in chosen_word:
+
+            # 1) l'utente ha terminato le vite perché lo status dell'impiccato è arrivato a 0 ( lo stato finale, corrispondente al primo indice della lista "stages" )
+            if life == 1:
+
+                #in questo caso stampa l'ultimo stadio della grafica e il gioco termina
+                print(stages[0])
+                print(f"\nThe word was {chosen_word}\nYOU LOSE...\n")
+                direction = False
+
+            # 2) l'utente ha ancora altre vite quindi il gioco continua
+            # la lettera errato viene inserita dentro la lista wrong_letter e verrà stampa e lo stadio dell'impiccato avanzerà di uno
             else:
-                wrong_letter.append(guess)
-                print(stages[stage_status])
-                print("Wrong letters you chose", wrong_letter,"\n")
-                stage_status -= 1
-                life -= 1
+                if guess in wrong_letter:
+                    print(stages[stage_status])
+                    print("Wrong letters you chose", wrong_letter,"\n")
+                    life -= 1
+                else:
+                    wrong_letter.append(guess)
+                    print(stages[stage_status])
+                    print("Wrong letters you chose", wrong_letter,"\n")
+                    stage_status -= 1
+                    life -= 1
 
-    # stampa della varibile display
-    print(" ".join(display))
+        # stampa della varibile display
+        print(" ".join(display))
 
-# se "_" non è presente all'interno di display significa che l'utente ha vinto e il gioco termina
-print(f"\nThe word was {chosen_word}\nYOU WIN!!!\n")
+    # se "_" non è presente all'interno di display significa che l'utente ha vinto e il gioco termina
+    print(f"\nThe word was {chosen_word}\nYOU WIN!!!\n")
+
 input("\nPremi INVIO per chiudere...")
