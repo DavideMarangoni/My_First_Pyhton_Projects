@@ -84,7 +84,8 @@ while continuare():
 
     #scelta della seconda persona da comparare
     while not utente_perde: # condizione ciclica finché l'utente non perde, riprendo la variabile utente_perde.
-        second_person = random.choice(game_data)
+        while firs_person == second_person:
+            second_person = random.choice(game_data)
         # gestisco la risposta corretta in termini di follower
         if firs_person["followers"] > second_person["followers"]: #se la prima è maggiore della seconda
             right_answer = ["a"]
@@ -102,14 +103,16 @@ while continuare():
             print("\n"*30) #lascio uno spazio di 30 righe in modo che sembri resettare tutto il programma e cambiasse pagina
             print(logo)
             print(f"You're right! Current score: {score}.\n") #stampo l'informazione di vittoria con relativo punteggio "score"
-            print("A:", second_person["name"] + ":", second_person["description"])
-            second_person = firs_person # questa è la parte fondamentale del ciclo in quanto ho bisogno che la seconda persona diventi la prima per farla restare all'interno delle variabili
+            if "a" in right_answer:
+                print("A:", firs_person["name"] + ":", firs_person["description"])
+            else:
+                print("A:", second_person["name"] + ":", second_person["description"])
+                second_person = firs_person # questa è la parte fondamentale del ciclo in quanto ho bisogno che la seconda persona diventi la prima per farla restare all'interno delle variabili
             # senza questo passaggio sarebbe impensabile fare un paragone tra una persona nuova e la vincitrice delle precedenti.
 
 
         else: # se la risposta non è contenuta all'interno della lista right_answer --> risposta sbagliata
             print(f"\nSorry, that's wrong. Final score: {score}") # stampo l'informazione di sconfitta con relativo punteggio "score"
             utente_perde = True # cambio la variabile utente_perde per farlo uscire dal ciclo while di richiesta risposte per confronto e farlo entrare in "continuare()"
-
-
+input("Press ENTER to close the program ")
 
