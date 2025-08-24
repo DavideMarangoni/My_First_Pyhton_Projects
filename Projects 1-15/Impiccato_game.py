@@ -1,5 +1,4 @@
 import random
-import sys
 
 # Questi sono tutti gli step della grafica dell'impiccato
 # Si tratta di una lista che va dall'indice 0 all'indice 6
